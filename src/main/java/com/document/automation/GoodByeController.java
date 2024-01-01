@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/good-bye")
-public class GoodByController {
+public class GoodByeController {
 
     @GetMapping("/test-api")
     public ResponseEntity<?> getTestAPI() {
