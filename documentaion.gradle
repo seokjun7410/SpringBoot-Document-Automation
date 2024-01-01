@@ -1,0 +1,65 @@
+
+
+dependencies {
+    //document
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.2'
+    testImplementation 'com.epages:restdocs-api-spec-restassured:0.18.2'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
+}
+
+
+//이하 redocGenerationIntegration tasks
+task redocGenerationIntegration(type: Exec){
+    commandLine 'redoc-cli', 'bundle', 'openapi-fixed.yaml'
+}
+
+
+task openapi3fix(type: Exec) { // Exec 타입의 Gradle 작업인 openapi3fix를 정의합니다.
+    commandLine 'python3', './fix-openapi-yaml.py', 'build/api-spec/openapi.yaml' // YAML 파일을 인자로 하여 Python 스크립트를 실행하는 명령 줄을 지정합니다.
+    standardOutput = new ByteArrayOutputStream() // 표준 출력을 캡처하기 위한 ByteArrayOutputStream을 생성합니다.
+
+    doLast { // 작업 실행 블록의 시작
+        def outputStream = new FileOutputStream('openapi-fixed.yaml') // 수정된 YAML 내용을 openapi-fixed.yaml 파일에 작성하기 위한 새로운 출력 스트림을 생성합니다.
+        outputStream.write(standardOutput.toString().getBytes()) // 캡처한 표준 출력을 출력 스트림에 작성합니다.
+        outputStream.close() // 출력 스트림을 닫습니다.
+
+        def processResult = standardOutput.toString() // 캡처한 표준 출력을 processResult 변수에 문자열로 저장합니다.
+        if (processResult.contains('Traceback') || processResult.contains('Error')) { // 표준 출력에 'Traceback' 또는 'Error'가 포함되어 있는지 확인합니다.
+            println "오류가 발생했습니다." // 출력에 'Traceback' 또는 'Error'가 있는 경우 한국어로 오류 메시지를 출력합니다.
+        } else {
+            println "YAML 파일이 성공적으로 수정되었습니다." // 오류가 발생하지 않은 경우, YAML 파일이 성공적으로 수정되었음을 나타내는 한국어 성공 메시지를 출력합니다.
+            // YAML 파일 수정이 성공적으로 완료된 경우 여기에 추가 작업이나 동작을 수행할 수 있습니다.
+        }
+    }
+}
+
+task makeOAS(type: Exec) {
+    commandLine 'gradle', 'openapi3' // 실행할 명령어 및 옵션을 지정합니다.
+}
+
+
+openapi3 {
+    servers = [
+            { url = "http://localhost:8080" },
+            { url = "https://서버url" }
+    ]
+    title = "플젝 제목"
+    description = "플젝 설명"
+    version = "버전"
+    format = "yaml" // (json / yaml)
+//    outputDirectory = "src/main/resources/static"
+    outputFileNamePrefix = "openapi"
+}
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+openapi3fix.dependsOn makeOAS
+redocGenerationIntegration.dependsOn openapi3fix
+
+def groupName = "automatic_documentaion"
+makeOAS.group = groupName
+openapi3fix.group = groupName
+redocGenerationIntegration.group = groupName
+

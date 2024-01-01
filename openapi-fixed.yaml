@@ -1,0 +1,123 @@
+components:
+  schemas:
+    member-sign-up-1353246949:
+      properties:
+        data:
+          description: "\uC751\uB2F5 \uB370\uC774\uD130 \uB798\uD37C \uD074\uB798\uC2A4"
+          properties:
+            id:
+              description: "\uC0DD\uC131\uB41C \uAD00\uB9AC\uC790 Id"
+              type: number
+          type: object
+        status:
+          description: "\uCEE4\uC2A4\uD140 \uC0C1\uD0DC\uCF54\uB4DC"
+          type: number
+      type: object
+    member-sign-up-1764135359:
+      properties:
+        error:
+          description: HttpStatus
+          type: string
+        path:
+          description: "\uC694\uCCAD\uB41C \uACBD\uB85C(path)"
+          type: string
+        status:
+          description: HttpStatus Value
+          type: number
+        timestamp:
+          description: "\uD604\uC7AC \uC2DC\uAC04"
+          type: string
+      type: object
+    member-sign-up-621921946:
+      properties:
+        email:
+          description: '[Must be a well-formed email address]'
+          type: string
+        name:
+          description: '[Length must be between 3 and 12 inclusive]'
+          type: string
+        pw:
+          description: '[Length must be between 6 and 12 inclusive], [Must not be
+            empty], [Must not be null]'
+          type: string
+      type: object
+info:
+  description: "\uD50C\uC81D \uC124\uBA85"
+  title: "\uD50C\uC81D \uC81C\uBAA9"
+  version: "\uBC84\uC804"
+openapi: 3.0.1
+paths:
+  /member/sign-up:
+    post:
+      description: "\uAD00\uB9AC\uC790 \uACC4\uC815\uC744 \uC0DD\uC131\uD560 \uC218\
+        \ \uC788\uC2B5\uB2C8\uB2E4."
+      operationId: email-validation-exceptionmember-create-201pw-validation-exception
+      parameters:
+      - description: Content Type Header
+        example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            examples:
+              email-validation-exception:
+                value:
+                  email: '1234'
+                  name: "\uC544\uBB34\uAC1C"
+                  pw: password
+              member-create-201:
+                value:
+                  email: rkskek@naver.com
+                  name: "\uC544\uBB34\uAC1C"
+                  pw: password
+              pw-validation-exception:
+                value:
+                  email: rkskek@naver.com
+                  name: "\uC544\uBB34\uAC1C"
+                  pw: '1234'
+            schema:
+              $ref: '#/components/schemas/member-sign-up-621921946'
+      responses:
+        '201':
+          content:
+            application/json:
+              examples:
+                member-create-201:
+                  value:
+                    data:
+                      id: 1
+                    status: 2000
+              schema:
+                $ref: '#/components/schemas/member-sign-up-1353246949'
+          description: '201'
+        '400':
+          content:
+            application/json:
+              examples:
+                email-validation-exception:
+                  value:
+                    error: Bad Request
+                    path: /member/sign-up
+                    status: 400
+                    timestamp: '2024-01-01T14:04:30.834+00:00'
+                pw-validation-exception:
+                  value:
+                    error: Bad Request
+                    path: /member/sign-up
+                    status: 400
+                    timestamp: '2024-01-01T14:04:30.795+00:00'
+              schema:
+                $ref: '#/components/schemas/member-sign-up-1764135359'
+          description: '400'
+      summary: "\uAD00\uB9AC\uC790 \uC0DD\uC131"
+      tags:
+      - member
+servers:
+- url: http://localhost:8080
+- url: "https://\uC11C\uBC84url"
+tags: []
+
