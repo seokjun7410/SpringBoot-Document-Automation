@@ -5,7 +5,7 @@
 # Introduce blog
 - https://hoding-cloud.tistory.com/3
 
-# Use dependency
+# Used dependency
 - https://docs.spring.io/spring-restdocs/docs/current/reference/htmlsingle/#getting-started
 - https://github.com/ePages-de/restdocs-api-spec﻿
 ```
@@ -18,7 +18,7 @@
 ```
 - and redoc-cli
 
-# What can you learn
+# What I learned
 - How to use RestAssured and RestDocs together
 - Efficient configuration when using RestAssuerd and RestDocs
 - Gradle file separation, task creation, and task chaining
