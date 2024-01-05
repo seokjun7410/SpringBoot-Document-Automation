@@ -22,8 +22,8 @@
 - How to use RestAssured and RestDocs together
 - Efficient configuration when using RestAssuerd and RestDocs
 - Gradle file separation, task creation, and task chaining
-- When you have a customized response body format, you can create a binding class.
-- You can run python files through Gradle task.
+- When I have a customized response body format, you can create a binding class.
+- I can run python files through Gradle task.
 
 # Goals of the project
 - You can create and update redoc-static.html with just one gradle task execution.
