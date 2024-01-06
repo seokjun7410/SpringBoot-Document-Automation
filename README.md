@@ -26,7 +26,7 @@
 - I can run python files through Gradle task.
 
 # Goals of the project
-- I can create and update redoc-static.html with just one gradle task execution.
+- create and update redoc-static.html with just one gradle task execution.
 
 # problem solved
 - https://github.com/ePages-de/restdocs-api-spec/issues/109#issuecomment-736012775
