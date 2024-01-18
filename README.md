@@ -1,6 +1,8 @@
 # SpringBoot-Document-Automation
  This repository contains example projects for building springboot document automation.
 
+# Goals of the project
+- create and update redoc-static.html with just one gradle task execution.
 
 # Introduce blog
 - https://hoding-cloud.tistory.com/3
@@ -22,11 +24,8 @@
 - How to use RestAssured and RestDocs together
 - Efficient configuration when using RestAssuerd and RestDocs
 - Gradle file separation, task creation, and task chaining
-- When I have a customized response body format, you can create a binding class.
 - I can run python files through Gradle task.
 
-# Goals of the project
-- create and update redoc-static.html with just one gradle task execution.
 
 # problem solved
 - https://github.com/ePages-de/restdocs-api-spec/issues/109#issuecomment-736012775
